@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import { auth } from '../src/index'; 
-import User from '../src/models/UserModel';
+import { auth } from '../index'; 
+import User from '../models/UserModel';
 
 // Mock Mongoose's connect method and User model
 jest.mock('mongoose', () => ({
@@ -22,7 +22,7 @@ const mockUserInstanceMethods = {
     save: jest.fn()
 };
 
-jest.mock('../src/models/UserModel', () => {
+jest.mock('../models/UserModel', () => {
     return {
       __esModule: true, // This property makes it work with default exports
       default: jest.fn().mockImplementation((data) => {

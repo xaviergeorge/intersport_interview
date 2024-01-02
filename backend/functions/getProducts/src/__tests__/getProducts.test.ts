@@ -1,7 +1,7 @@
 // getProducts/__tests__/getProducts.test.ts
 import mongoose from 'mongoose';
-import { getProducts } from '../src/index'; // Adjust the path based on your directory structure
-import Product from '../src/models/ProductModel';
+import { getProducts } from '../index'; // Adjust the path based on your directory structure
+import Product from '../models/ProductModel';
 
 // Mock Mongoose's connect method and Product model
 jest.mock('mongoose', () => ({
@@ -10,7 +10,7 @@ jest.mock('mongoose', () => ({
   connection: { readyState: 0 }
 }));
 
-jest.mock('../src/models/ProductModel', () => ({
+jest.mock('../models/ProductModel', () => ({
   find: jest.fn()
 }));
 
