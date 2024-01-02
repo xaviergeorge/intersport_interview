@@ -1,10 +1,13 @@
 
 import mongoose from 'mongoose';
-import { addToCart } from '../src/index'; // Adjust the path based on your directory structure
-import Cart from '../src/models/CartModel';
-import { validateProductOptions } from '../src/utils/validateOptions';
+
+
+
 import { Mock } from 'jest-mock';
 import { mocked } from 'jest-mock';
+import { validateProductOptions } from '../utils/validateOptions';
+import Cart from '../models/CartModel';
+import { addToCart } from '..';
 
 
 // Mock Mongoose's connect method and Cart model
@@ -17,7 +20,7 @@ jest.mock('mongoose', () => ({
   connection: { readyState: 0 }
 }));
 
-jest.mock('../src/utils/validateOptions', () => ({
+jest.mock('../utils/validateOptions', () => ({
   validateProductOptions: jest.fn(),
 }));
 
@@ -26,7 +29,7 @@ const mockCartInstanceMethods = {
     save: jest.fn()
   };
 
-jest.mock('../src/models/CartModel', () => {
+jest.mock('../models/CartModel', () => {
     return {
       __esModule: true, // This property makes it work with default exports
       default: jest.fn().mockImplementation((data) => {

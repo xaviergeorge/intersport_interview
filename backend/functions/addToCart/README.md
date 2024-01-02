@@ -41,7 +41,17 @@ Before deploying the function, ensure you have the following prerequisites:
 
    The function will be available at http://localhost:8080.
 
-4. **Deploy the Function:**
+4. **Build the function for deploying**
+
+   To build the function for deploying, use the following command
+
+   ```bash
+   npm run gcp-build
+   ```
+
+   This will first run the tests and then build the ts files for deploying.
+
+5. **Deploy the Function:**
 
    Use the Google Cloud SDK to deploy the function:
 
@@ -55,11 +65,11 @@ Before deploying the function, ensure you have the following prerequisites:
 
    Replace `<your-mongodb-uri>` with your actual MongoDB connection URI.
 
-5. **Testing:**
+6. **Testing:**
 
    After deployment, the function will be accessible via an HTTP endpoint provided by Google Cloud. You can test it by making POST requests to this endpoint.
 
-6. **Usage:**
+7. **Usage:**
 
    The `addToCart` function accepts POST requests with the following JSON data:
 
