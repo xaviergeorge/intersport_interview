@@ -4,7 +4,6 @@
   "description": "A function to get all the products in the database",
   "main": "ts-built/index.js",
   "scripts": {
-    "dev": "functions-framework --target=getProducts --source=dist/ --signature-type=http",
     "gcp-build": "npm run build",
     "build": "tsc",
     "start": "npm run build && npx @google-cloud/functions-framework --target=getProducts",

@@ -5,7 +5,8 @@
   "main": "ts-built/index.js",
   "scripts": {
     "test": "jest",
-    "gcp-build": "npm run build",
+    "test:cov": "jest --coverage",
+    "gcp-build": "npm run test && npm run build",
     "build": "tsc",
     "start": "npm run build && npx @google-cloud/functions-framework --target=auth"
   },
