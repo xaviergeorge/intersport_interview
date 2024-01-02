@@ -128,3 +128,11 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# ts-built folder 
+ts-built
+
+#.env.production and .env.development and .DS_Store
+.env.production
+.env.development
+.DS_Store
