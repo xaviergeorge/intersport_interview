@@ -2,7 +2,10 @@
 import mongoose from 'mongoose';
 import { addToCart } from '../src/index'; // Adjust the path based on your directory structure
 import Cart from '../src/models/CartModel';
+import { validateProductOptions } from '../src/utils/validateOptions';
 import { Mock } from 'jest-mock';
+import { mocked } from 'jest-mock';
+
 
 // Mock Mongoose's connect method and Cart model
 jest.mock('mongoose', () => ({
@@ -12,6 +15,10 @@ jest.mock('mongoose', () => ({
     save: jest.fn(),
   }),
   connection: { readyState: 0 }
+}));
+
+jest.mock('../src/utils/validateOptions', () => ({
+  validateProductOptions: jest.fn(),
 }));
 
 
@@ -58,10 +65,12 @@ beforeEach(() => {
   (mongoose.connect as jest.Mock).mockClear();
   mockCartStaticMethods.findOne.mockClear();
   mockCartInstanceMethods.save.mockClear();
+  mocked(validateProductOptions).mockResolvedValue(true);
 });
 
   it('adds a new item to an empty cart', async () => {
     Cart.findOne = jest.fn().mockResolvedValue(null);
+
   
     const req = {
       method: 'POST',
@@ -162,7 +171,11 @@ beforeEach(() => {
         origin: 'http://localhost:3000'
       },
       body: {
-        // ...request body...
+        userId: 'user1',
+        productId: 'prod1',
+        color: 'red',
+        size: 'M',
+        quantity: 1
       }
     } as any;
     const res = {
@@ -178,5 +191,4 @@ beforeEach(() => {
     expect(res.send).toHaveBeenCalledWith('Internal Server Error');
   });
 
-  // Additional test cases...
 });
