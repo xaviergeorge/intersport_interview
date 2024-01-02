@@ -1,0 +1,26 @@
+{
+  "name": "subscriber-function",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "gcp-build": "npm run build",
+    "start": "npm run build && functions-framework --target=processAddToCart"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
+    "dotenv": "^16.3.1",
+    "mongoose": "^8.0.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.6",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.3"
+  }
+}
