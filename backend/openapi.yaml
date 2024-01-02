@@ -1,0 +1,126 @@
+swagger: "2.0"
+info:
+  title: E-commerce API
+  description: API for E-commerce platform
+  version: "1.0.0"
+host: "intersport-gateway-2abu0fa1.uc.gateway.dev"
+x-google-endpoints:
+  - name: "intersport-gateway-2abu0fa1.uc.gateway.dev"
+    allowCors: True
+
+paths:
+  /getProducts:
+    get:
+      summary: Get products
+      operationId: getProducts
+      x-google-backend:
+        address: https://us-central1-gcp-atlas.cloudfunctions.net/getProducts
+      responses:
+        "200":
+          description: A list of products
+    options:
+      summary: CORS support for getProducts
+      operationId: corsGetProducts
+      x-google-backend:
+        address: https://us-central1-gcp-atlas.cloudfunctions.net/getProducts
+      responses:
+        "200":
+          description: CORS headers sent
+
+  /addToCart:
+    post:
+      summary: Add item to cart
+      operationId: addToCart
+      x-google-backend:
+        address: https://us-central1-gcp-atlas.cloudfunctions.net/addToCart
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              userId:
+                type: string
+              productId:
+                type: string
+              color:
+                type: string
+              size:
+                type: string
+              quantity:
+                type: integer
+      responses:
+        "200":
+          description: Item added to cart
+    options:
+      summary: CORS support for addToCart
+      operationId: corsAddToCart
+      x-google-backend:
+        address: https://us-central1-gcp-atlas.cloudfunctions.net/addToCart
+      responses:
+        "200":
+          description: CORS headers sent
+  /auth/login:
+    post:
+      summary: Login a user
+      operationId: loginUser
+      x-google-backend:
+        address: https://us-central1-gcp-atlas.cloudfunctions.net/auth/login
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        "200":
+          description: Login successful
+        "401":
+          description: Invalid username or password
+    options:
+      summary: CORS support for login
+      operationId: corsLogin
+      x-google-backend:
+        address: https://us-central1-gcp-atlas.cloudfunctions.net/auth/login
+      responses:
+        "200":
+          description: CORS headers sent
+
+  /auth/signup:
+    post:
+      summary: Sign up a new user
+      operationId: signupUser
+      x-google-backend:
+        address: https://us-central1-gcp-atlas.cloudfunctions.net/auth/signup
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              fullName:
+                type: string
+      responses:
+        "201":
+          description: User created successfully
+        "409":
+          description: Username already in use
+    options:
+      summary: CORS support for signup
+      operationId: corsSignup
+      x-google-backend:
+        address: https://us-central1-gcp-atlas.cloudfunctions.net/auth/signup
+      responses:
+        "200":
+          description: CORS headers sent

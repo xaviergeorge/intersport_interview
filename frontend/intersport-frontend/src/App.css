@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+  background-color: #f5f5f5; /* light grey background */
+  min-height: 100vh; /* full height */
+  display: flex;
+  flex-direction: column;
+}
+
+.App .Navbar {
+  width: 100%;
+  background-color: #0d47a1; /* Adjust the color to match your design */
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+main .ProductDetail {
+  background-color: #ffffff; /* white background for product details */
+  padding: 20px;
+  border-radius: 8px; /* optional: rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* optional: shadow for depth */
+  margin-top: 20px; /* space between navbar and product detail */
+}
