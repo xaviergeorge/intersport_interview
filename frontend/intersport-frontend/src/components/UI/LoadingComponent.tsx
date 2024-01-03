@@ -13,6 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 const LoadingComponent: React.FC = () => {
   return (
     <div
+      data-testid="loading-component"
       style={{
         display: "flex",
         justifyContent: "center",

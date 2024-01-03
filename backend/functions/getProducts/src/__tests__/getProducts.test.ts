@@ -23,7 +23,7 @@ describe('getProducts', () => {
   it('successfully retrieves products', async () => {
     (Product.find as jest.Mock).mockResolvedValue([{ title: 'Cozy Sweatshirt', description: 'A comfortable sweatshirt' }]);
 
-    const req = { method: 'GET' } as any;
+    const req = { method: 'GET', headers: { origin: 'http://localhost:3000' } } as any;
     const res = {
       set: jest.fn().mockReturnThis(),
       status: jest.fn().mockReturnThis(),
@@ -45,7 +45,7 @@ describe('getProducts', () => {
       throw new Error('Failed to connect to MongoDB');
     });
   
-    const req = { method: 'GET' } as any;
+    const req = { method: 'GET', headers: { origin: 'http://localhost:3000' }} as any;
     const res = {
       set: jest.fn().mockReturnThis(),
       status: jest.fn().mockReturnThis(),
@@ -62,7 +62,7 @@ describe('getProducts', () => {
   it('returns an empty array when no products are found', async () => {
     (Product.find as jest.Mock).mockResolvedValue([]);
   
-    const req = { method: 'GET' } as any;
+    const req = { method: 'GET', headers: { origin: 'http://localhost:3000' } } as any;
     const res = {
       set: jest.fn().mockReturnThis(),
       status: jest.fn().mockReturnThis(),

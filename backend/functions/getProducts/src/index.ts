@@ -19,6 +19,20 @@ const connectToDatabase = async () => {
   }
 };
 
+// Function to set CORS (Cross-Origin Resource Sharing) headers.
+const setCORSHeaders = (req, res) => {
+  const allowedOrigins = ['http://localhost:3000', 'https://gcp-atlas.web.app'];
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+      res.set('Access-Control-Allow-Origin', origin);
+  }
+
+  res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.set('Access-Control-Allow-Credentials', 'true');
+};
+
 /**
  * HTTP Function to retrieve a list of products.
  * @param {Request} req - The HTTP request object.
@@ -27,9 +41,7 @@ const connectToDatabase = async () => {
  */
 export const getProducts: HttpFunction = async (req, res) => {
   // Set CORS headers for cross-origin requests.
-  res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.set('Access-Control-Allow-Methods', 'GET');
-  res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  setCORSHeaders(req, res);
 
   // Handle OPTIONS method for CORS preflight.
   if (req.method === 'OPTIONS') {

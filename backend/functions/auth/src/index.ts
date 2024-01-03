@@ -21,7 +21,7 @@ const connectToDatabase = async () => {
 
 // Function to set CORS (Cross-Origin Resource Sharing) headers.
 const setCORSHeaders = (req, res) => {
-    const allowedOrigins = ['http://localhost:3000', 'https://your-production-url.com'];
+    const allowedOrigins = ['http://localhost:3000', 'https://gcp-atlas.web.app'];
     const origin = req.headers.origin;
 
     if (allowedOrigins.includes(origin)) {
@@ -40,8 +40,7 @@ const setCORSHeaders = (req, res) => {
  * @returns {void}
  */
 export const auth: HttpFunction = async (req, res) => {
-    // Connect to the MongoDB database.
-    await connectToDatabase();
+    
 
     // Set CORS headers for cross-origin requests.
     setCORSHeaders(req, res);
@@ -86,6 +85,13 @@ export const auth: HttpFunction = async (req, res) => {
  */
 const loginUser = async (req, res) => {
     const { username, password } = req.body;
+    // validate the request body first
+    if (!username || !password) {
+        // If the username or password is missing, send a 400 Bad Request response.
+        return res.status(400).send({ message: 'Missing username or password' });
+    }
+    // Connect to the MongoDB database.
+    await connectToDatabase();
 
     // Find user by username in the database.
     const user = await User.findOne({ username: username.trim() });
@@ -125,6 +131,14 @@ const signupUser = async (req, res) => {
     }
 
     const { username, password, fullName } = req.body;
+    // validate the request body first
+    if (!username || !password || !fullName) {
+        // If the username, password, or fullName is missing, send a 400 Bad Request response.
+        return res.status(400).send({ message: 'Missing username, password, or fullName' });
+    }
+
+    // Connect to the MongoDB database.
+    await connectToDatabase();
 
     // Check if a user with the same username already exists in the database.
     const existingUser = await User.findOne({ username });

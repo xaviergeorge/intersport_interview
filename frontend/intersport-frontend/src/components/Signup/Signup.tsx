@@ -7,56 +7,53 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+
 import { useNavigate } from "react-router-dom";
-import { login } from "../../redux/slices/userSlice";
 import api from "../../services/api";
 import CustomSnackbar from "../UI/CustomSnackbar";
 import axios from "axios";
 
 /**
- * The LoginPage component for user authentication.
+ * The SignupPage component for user registration.
  * @component
- * @returns {JSX.Element} The JSX representation of the LoginPage component.
+ * @returns {JSX.Element} The JSX representation of the SignupPage component.
  */
-const LoginPage: React.FC = () => {
+const SignupPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">(
     "success"
   );
+  const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  /**
-   * Handles the user login submission.
-   * @param {React.FormEvent<HTMLFormElement>} event - The form submission event.
-   */
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await api.post("/auth/login", {
+      const response = await api.post("/auth/signup", {
         username,
         password,
+        fullName,
       });
 
       const data = await response.data;
 
-      dispatch(login({ username: data.user.username, userId: data.user._id }));
+      if (!response) {
+        throw new Error(data.message || "Signup failed");
+      }
 
-      setSnackbarMessage("Login successful");
+      setSnackbarMessage("Signup successful. Please login.");
       setSnackbarSeverity("success");
-      setOpenSnackbar(true);
-
+      // Delay navigation to allow Snackbar to be seen
       setTimeout(() => {
-        navigate("/");
-      }, 2000); // Delay for the Snackbar to show
+        navigate("/login");
+      }, 2000); // 2 seconds delay
     } catch (error) {
       let message = "An unknown error occurred";
 
@@ -71,8 +68,8 @@ const LoginPage: React.FC = () => {
 
       setSnackbarMessage(message);
       setSnackbarSeverity("error");
-      setOpenSnackbar(true);
     } finally {
+      setOpenSnackbar(true);
       setIsLoading(false);
     }
   };
@@ -92,9 +89,9 @@ const LoginPage: React.FC = () => {
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign Up
         </Typography>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSignup}>
           <TextField
             margin="normal"
             required
@@ -115,9 +112,20 @@ const LoginPage: React.FC = () => {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            autoComplete="new-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="fullName"
+            label="Full Name"
+            type="text"
+            id="fullName"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
           />
           <Button
             type="submit"
@@ -126,7 +134,7 @@ const LoginPage: React.FC = () => {
             sx={{ mt: 3, mb: 2 }}
             disabled={isLoading}
           >
-            {isLoading ? <CircularProgress size={24} /> : "Sign In"}
+            {isLoading ? <CircularProgress size={24} /> : "Sign Up"}
           </Button>
         </form>
       </Box>
@@ -140,4 +148,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;

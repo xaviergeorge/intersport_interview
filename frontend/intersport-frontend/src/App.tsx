@@ -10,6 +10,7 @@ import { Box, Typography } from "@mui/material";
 import LoginPage from "./components/Login/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import api from "./services/api";
+import SignupPage from "./components/Signup/Signup";
 
 /**
  * Main application component.
@@ -94,6 +95,7 @@ const App: React.FC = () => {
                 }
               />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
             </Routes>
           </main>
         </div>

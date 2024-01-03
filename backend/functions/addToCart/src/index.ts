@@ -25,7 +25,7 @@ const connectToDatabase = async () => {
 // Function to set CORS (Cross-Origin Resource Sharing) headers.
 const setCORSHeaders = (req, res) => {
   // Define allowed origins here.
-  const allowedOrigins = ['http://localhost:3000', 'https://your-production-url.com'];
+  const allowedOrigins = ['http://localhost:3000', 'https://gcp-atlas.web.app'];
 
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
