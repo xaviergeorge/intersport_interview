@@ -1,76 +1,119 @@
-// src/redux/slices/cartSlice.ts
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+/**
+ * Represents a single item in the cart.
+ */
 export interface CartItem {
-    productId: string;
-    color: string;
-    size: string;
-    quantity: number;
-}
-  
-interface CartState {
-items: CartItem[];
+  productId: string;
+  color: string;
+  size: string;
+  quantity: number;
 }
 
+/**
+ * Represents the state of the cart in the Redux store.
+ */
+interface CartState {
+  items: CartItem[];
+}
+
+/**
+ * The initial state of the cart slice.
+ */
 const initialState: CartState = {
-items: [],
+  items: [],
 };
 
+/**
+ * Create a Redux slice for cart-related actions and state.
+ */
 const cartSlice = createSlice({
-  name: 'cart',
-  initialState,
+  name: 'cart', // Slice name
+  initialState, // Initial state
   reducers: {
+    /**
+     * Action to add an item to the cart.
+     * @param {CartState} state - The current cart state.
+     * @param {PayloadAction<CartItem>} action - The action containing the cart item to be added.
+     */
     addToCart: (state, action: PayloadAction<CartItem>) => {
-        const itemIndex = state.items.findIndex(
-            (item) => item.productId === action.payload.productId &&
-                      item.color === action.payload.color &&
-                      item.size === action.payload.size
-          );
-        
-          if (itemIndex !== -1) {
-            // If the item already exists in the cart, update the quantity
-            state.items[itemIndex].quantity += action.payload.quantity;
-          } else {
-            // If it's a new item, add it to the cart
-            state.items.push(action.payload);
-          }
+      const itemIndex = state.items.findIndex(
+        (item) =>
+          item.productId === action.payload.productId &&
+          item.color === action.payload.color &&
+          item.size === action.payload.size
+      );
+
+      if (itemIndex !== -1) {
+        // If the item already exists in the cart, update the quantity
+        state.items[itemIndex].quantity += action.payload.quantity;
+      } else {
+        // If it's a new item, add it to the cart
+        state.items.push(action.payload);
+      }
     },
-    removeFromCart: (state, action: PayloadAction<{ productId: string, color: string, size: string }>) => {
-        const index = state.items.findIndex(
-          (item) => item.productId === action.payload.productId &&
-                    item.color === action.payload.color &&
-                    item.size === action.payload.size
-        );
-  
-        if (index !== -1) {
-          if (state.items[index].quantity > 1) {
-            // If there's more than one item, decrease the quantity
-            state.items[index].quantity -= 1;
-          } else {
-            // If it's the last item, remove it from the cart
-            state.items.splice(index, 1);
-          }
+    /**
+     * Action to remove an item from the cart or decrease its quantity.
+     * @param {CartState} state - The current cart state.
+     * @param {PayloadAction<{ productId: string; color: string; size: string }>} action - The action containing the item to be removed.
+     */
+    removeFromCart: (
+      state,
+      action: PayloadAction<{ productId: string; color: string; size: string }>
+    ) => {
+      const index = state.items.findIndex(
+        (item) =>
+          item.productId === action.payload.productId &&
+          item.color === action.payload.color &&
+          item.size === action.payload.size
+      );
+
+      if (index !== -1) {
+        if (state.items[index].quantity > 1) {
+          // If there's more than one item, decrease the quantity
+          state.items[index].quantity -= 1;
+        } else {
+          // If it's the last item, remove it from the cart
+          state.items.splice(index, 1);
         }
-      },
-  
-      // The setCount action may not be necessary if you handle quantity adjustments within addToCart and removeFromCart
-      // If you still need a setCount to handle special cases like setting the quantity from an input field, you can modify it to:
-      setItemQuantity: (state, action: PayloadAction<{ productId: string, color: string, size: string, quantity: number }>) => {
-        const index = state.items.findIndex(
-          (item) => item.productId === action.payload.productId &&
-                    item.color === action.payload.color &&
-                    item.size === action.payload.size
-        );
-  
-        if (index !== -1 && action.payload.quantity >= 0) {
-          // Set the quantity of the specific item
-          state.items[index].quantity = action.payload.quantity;
-        }
-      },
+      }
+    },
+
+    /**
+     * Action to set the quantity of a specific item in the cart.
+     * @param {CartState} state - The current cart state.
+     * @param {PayloadAction<{ productId: string; color: string; size: string; quantity: number }>} action - The action containing the item and the new quantity.
+     */
+    setItemQuantity: (
+      state,
+      action: PayloadAction<{
+        productId: string;
+        color: string;
+        size: string;
+        quantity: number;
+      }>
+    ) => {
+      const index = state.items.findIndex(
+        (item) =>
+          item.productId === action.payload.productId &&
+          item.color === action.payload.color &&
+          item.size === action.payload.size
+      );
+
+      if (index !== -1 && action.payload.quantity >= 0) {
+        // Set the quantity of the specific item
+        state.items[index].quantity = action.payload.quantity;
+      }
+    },
   },
 });
 
+/**
+ * Export the actions generated by the cart slice.
+ */
 export const { addToCart, removeFromCart, setItemQuantity } = cartSlice.actions;
 
+/**
+ * Export the cart slice reducer.
+ */
 export default cartSlice.reducer;

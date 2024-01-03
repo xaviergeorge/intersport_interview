@@ -1,5 +1,3 @@
-// src/components/Navbar/Navbar.tsx
-
 import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,51 +7,83 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
-import { logout } from "../../redux/slices/userSlice"; // import logout action
-import { Button } from "@mui/material";
+import { logout } from "../../redux/slices/userSlice"; // Import logout action
+import { Badge, Button, Stack } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
+/**
+ * The Navbar component for the application.
+ * @component
+ * @returns {JSX.Element} The JSX representation of the Navbar component.
+ */
 const Navbar: React.FC = () => {
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
+  const cartCount = useSelector((state: RootState) =>
+    state.cart.items.reduce((total, item) => total + item.quantity, 0)
+  ); // Calculate total items in the cart
   const username = useSelector((state: RootState) => state.user.username);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  /**
+   * Handles the logout action.
+   */
   const handleLogout = () => {
     dispatch(logout()); // Dispatch logout action
-    navigate("/"); // Navigate to home page after logout
+    navigate("/"); // Navigate to the home page after logout
   };
+
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar>
         {/* Home Icon */}
-        <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
+        <Link
+          to="/"
+          style={{
+            color: "inherit",
+            textDecoration: "none",
+            marginRight: "auto",
+          }}
+        >
           <IconButton edge="start" color="inherit" aria-label="home">
             <HomeIcon />
           </IconButton>
         </Link>
 
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          My E-commerce Store
-        </Typography>
+        {/* This Stack centers the title and separates the elements evenly */}
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={2}
+          sx={{ flexGrow: 1, justifyContent: "center" }}
+        >
+          <Typography variant="h6" component="div">
+            My E-commerce Store
+          </Typography>
+        </Stack>
 
+        {/* User Greeting, Cart, and Logout */}
         {isLoggedIn ? (
-          <>
-            <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Badge badgeContent={cartCount} color="error">
+              <ShoppingCartIcon />
+            </Badge>
+            <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
               Hi, {username}
             </Typography>
-            <Button color="inherit" onClick={handleLogout}>
+            <Button
+              color="inherit"
+              onClick={handleLogout}
+              sx={{ marginLeft: 1 }}
+            >
               Logout
             </Button>
-          </>
+          </Stack>
         ) : (
-          <>
+          <Stack direction="row" alignItems="center" spacing={2}>
             <Link
               to="/login"
-              style={{
-                color: "inherit",
-                textDecoration: "none",
-                marginRight: "1rem",
-              }}
+              style={{ color: "inherit", textDecoration: "none" }}
             >
               Login
             </Link>
@@ -63,7 +93,7 @@ const Navbar: React.FC = () => {
             >
               Signup
             </Link>
-          </>
+          </Stack>
         )}
       </Toolbar>
     </AppBar>

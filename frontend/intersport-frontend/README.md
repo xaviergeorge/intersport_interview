@@ -1,46 +1,74 @@
-# Getting Started with Create React App
+# Intersport Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is the frontend of a sample e-commerce website. It provides user authentication, product display, and shopping cart functionality.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User Login
+- Product Display
+- Add to Cart
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To get a local copy up and running follow these simple steps.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+Before running the project, ensure you are using the correct version of Node.js as specified in the `.nvmrc` file. It is recommended to use `nvm` (Node Version Manager) to manage and install the correct Node.js version.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Install `nvm` by following the instructions here: https://github.com/nvm-sh/nvm
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository
+   ```sh
+   git clone https://github.com/xaviergeorge/intersport_interview.git
+   ```
+2. Navigate to the frontend project directory
+   ```sh
+   cd frontend/intersport-frontend
+   ```
+3. If you are using `nvm`, ensure you're using the right version of Node.js
+   ```sh
+   nvm use
+   ```
+4. Install NPM packages
+   ```sh
+   npm install
+   ```
+5. Create a `.env.production` file in the root of the project and specify your API base URL
+   ```env
+   REACT_APP_API_BASE_URL=<your url here>
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Running the Project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To run the project in development mode, execute:
 
-### `npm run eject`
+```sh
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This will start the local server and open the project in your default web browser.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Building for Production
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To build the project for production, run:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sh
+npm run build
+```
 
-## Learn More
+This will compile the React application and output the production-ready files in the `build` directory.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Use this project as a starting point for your e-commerce platform. Customize and extend it to suit your specific needs and requirements.
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Contact
+
+Project Link: [https://github.com/xaviergeorge/intersport_interview](https://github.com/xaviergeorge/intersport_interview)

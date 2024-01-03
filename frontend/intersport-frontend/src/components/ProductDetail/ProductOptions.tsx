@@ -2,12 +2,34 @@ import * as React from "react";
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { ProductOption, ProductSize } from "../../types/product";
 
+/**
+ * Props for the ProductOptions component.
+ * @interface
+ * @property {ProductOption[]} options - An array of product options (colors and sizes).
+ * @property {{ size: string; color: string }} selectedOption - The currently selected product option.
+ * @property {(option: { size: string; color: string }) => void} onSelectOption - A function to handle option selection.
+ */
 interface ProductOptionsProps {
   options: ProductOption[];
   selectedOption: { size: string; color: string };
   onSelectOption: (option: { size: string; color: string }) => void;
 }
 
+/**
+ * A component for selecting product options, including color and size.
+ *
+ * @component
+ * @example
+ * // Usage within a React component
+ * <ProductOptions
+ *   options={productOptions}
+ *   selectedOption={selectedProductOption}
+ *   onSelectOption={handleOptionSelection}
+ * />
+ *
+ * @param {ProductOptionsProps} props - The props for the ProductOptions component.
+ * @returns {JSX.Element} The JSX representation of the product options component.
+ */
 const ProductOptions: React.FC<ProductOptionsProps> = ({
   options,
   selectedOption,
@@ -21,6 +43,10 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
     onSelectOption({ ...selectedOption, size });
   };
 
+  /**
+   * Get available sizes for the currently selected color.
+   * @returns {ProductSize[]} An array of available product sizes.
+   */
   const getSizesForSelectedColor = (): ProductSize[] => {
     return (
       options.find((option) => option.color === selectedOption.color)?.sizes ||

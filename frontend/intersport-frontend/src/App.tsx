@@ -9,25 +9,31 @@ import { Product } from "./types/product";
 import { Box, Typography } from "@mui/material";
 import LoginPage from "./components/Login/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import api from "./services/api";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
-
+/**
+ * Main application component.
+ */
 const App: React.FC = () => {
+  // State to store product data, loading status, and error message
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Fetch product data when the component mounts
     const fetchProducts = async () => {
       try {
-        console.log("sending request to url:", `${API_BASE_URL}/getProducts`);
-        const response = await fetch(`${API_BASE_URL}/getProducts`);
-        if (!response.ok) {
+        const response = await api.get("/getProducts");
+
+        if (!response) {
           throw new Error("Network response was not ok");
         }
-        const data: Product[] = await response.json();
+
+        const data: Product[] = await response.data;
+
         if (data && data.length > 0) {
-          console.log("data:", data[0]);
+          // Set the first product in the response as the current product
           setProduct(data[0]);
         } else {
           setError("No products found");

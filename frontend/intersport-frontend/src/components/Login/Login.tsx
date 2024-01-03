@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Container,
-  TextField,
-  Button,
-  Typography,
-  Snackbar,
-} from "@mui/material";
+import { Box, Container, TextField, Button, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/slices/userSlice";
-import Alert from "@mui/material/Alert";
+import api from "../../services/api";
+import CustomSnackbar from "../UI/CustomSnackbar";
 
+/**
+ * The LoginPage component for user authentication.
+ * @component
+ * @returns {JSX.Element} The JSX representation of the LoginPage component.
+ */
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +23,11 @@ const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  /**
+   * Handles the Snackbar close event.
+   * @param {React.SyntheticEvent<any, Event> | Event} event - The event object.
+   * @param {string | undefined} reason - The reason for closing the Snackbar.
+   */
   const handleSnackbarClose = (
     event: React.SyntheticEvent<any, Event> | Event,
     reason?: string
@@ -33,29 +37,27 @@ const LoginPage: React.FC = () => {
     }
     setOpenSnackbar(false);
   };
+
+  /**
+   * Handles the user login submission.
+   * @param {React.FormEvent<HTMLFormElement>} event - The form submission event.
+   */
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
-        }
-      );
+      const response = await api.post("/auth/login", {
+        username,
+        password,
+      });
 
-      const data = await response.json();
+      const data = await response.data;
 
-      if (!response.ok) {
+      if (!response) {
         throw new Error(data.message || "Login failed");
       }
+      dispatch(login({ username: data.user.username, userId: data.user._id }));
 
-      dispatch(login(username)); // Update Redux state
-      dispatch(login(username));
       setSnackbarMessage("Login successful");
       setSnackbarSeverity("success");
       setOpenSnackbar(true);
@@ -120,15 +122,12 @@ const LoginPage: React.FC = () => {
           </Button>
         </form>
       </Box>
-      <Snackbar
+      <CustomSnackbar
         open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-      >
-        <Alert onClose={handleSnackbarClose} severity={snackbarSeverity}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
+        message={snackbarMessage}
+        severity={snackbarSeverity}
+        onClose={() => handleSnackbarClose}
+      />
     </Container>
   );
 };
