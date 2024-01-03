@@ -96,21 +96,6 @@ const ProductDetail: React.FC<Product> = ({
         setIsLoading(false);
       });
   };
-  /**
-   * Handles closing the snackbar.
-   *
-   * @param {React.SyntheticEvent<any>} event - The event that triggered the snackbar close.
-   * @param {string} reason - The reason for the snackbar close.
-   */
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent<any>,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setSnackbarOpen(false);
-  };
 
   /**
    * Handles selecting a product option.

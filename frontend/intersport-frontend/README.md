@@ -59,7 +59,37 @@ To build the project for production, run:
 npm run build
 ```
 
-This will compile the React application and output the production-ready files in the `build` directory.
+### Deployment using Firebase
+
+We use Firebase to host and serve our frontend application. Follow these steps to deploy your app using Firebase:
+
+1. **Firebase Login**:
+
+   - Run the command `firebase login` in your terminal.
+   - This will open a browser window asking you to log in with your Google account. This step authenticates your Firebase CLI with your Firebase account.
+
+2. **Firebase Initialization**:
+
+   - In your project directory, run `firebase init`.
+   - This starts an interactive session for Firebase initialization. You will be asked a series of questions to configure the Firebase services your project will use.
+   - For hosting, select 'Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys'.
+
+3. **Build the Project**:
+
+   - Run `npm run build` to create a production build of your project.
+   - This compiles your React application into static files in the `build` directory, which are used by Firebase for hosting.
+
+4. **Firebase Deployment**:
+
+   - Deploy your project to Firebase with the `firebase deploy` command.
+   - This uploads the static files from the `build` directory to Firebase Hosting.
+   - Once deployment is complete, Firebase will provide a URL where your app is hosted.
+
+5. **Update Cloud Functions for CORS Compatibility**:
+   - After deployment, Firebase assigns a unique URL to your app.
+   - Update this URL in your cloud functions' code to handle CORS (Cross-Origin Resource Sharing) issues. This step ensures your frontend and backend can communicate seamlessly.
+
+Remember to configure your `firebase.json` and `.firebaserc` files to match your project's hosting requirements and directory structure.
 
 ## Usage
 
@@ -72,3 +102,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 Project Link: [https://github.com/xaviergeorge/intersport_interview](https://github.com/xaviergeorge/intersport_interview)
+
+Deployment URL: https://gcp-atlas.web.app/

@@ -91,6 +91,10 @@ To run the services locally, make sure to set up both the frontend and backend a
 
 Please read the contributing guidelines in the CONTRIBUTING.md file.
 
+## Deployment
+
+The deployed version is available at: https://gcp-atlas.web.app
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
