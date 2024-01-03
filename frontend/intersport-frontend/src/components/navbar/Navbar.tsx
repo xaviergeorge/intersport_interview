@@ -35,52 +35,41 @@ const Navbar: React.FC = () => {
 
   return (
     <AppBar position="fixed">
-      <Toolbar>
-        {/* Home Icon */}
-        <Link
-          to="/"
-          style={{
-            color: "inherit",
-            textDecoration: "none",
-            marginRight: "auto",
-          }}
+      <Toolbar sx={{ justifyContent: "space-between" }}>
+        {" "}
+        {/* Adjusted for spacing */}
+        {/* Home Icon to the left */}
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="home"
+          sx={{ mr: 2 }}
         >
-          <IconButton edge="start" color="inherit" aria-label="home">
+          <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
             <HomeIcon />
-          </IconButton>
-        </Link>
-
-        {/* This Stack centers the title and separates the elements evenly */}
-        <Stack
-          direction="row"
-          alignItems="center"
-          spacing={2}
-          sx={{ flexGrow: 1, justifyContent: "center" }}
+          </Link>
+        </IconButton>
+        {/* Title in the center */}
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1, textAlign: "center" }}
         >
-          <Typography variant="h6" component="div">
-            My E-commerce Store
-          </Typography>
-        </Stack>
-
-        {/* User Greeting, Cart, and Logout */}
+          Shoppy
+        </Typography>
+        {/* Right side elements */}
         {isLoggedIn ? (
-          <Stack direction="row" alignItems="center" spacing={2}>
+          <Stack direction="row" alignItems="center" spacing={1}>
             <Badge badgeContent={cartCount} color="error">
               <ShoppingCartIcon />
             </Badge>
-            <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
-              Hi, {username}
-            </Typography>
-            <Button
-              color="inherit"
-              onClick={handleLogout}
-              sx={{ marginLeft: 1 }}
-            >
+            <Typography variant="subtitle1">Hi, {username}</Typography>
+            <Button color="inherit" onClick={handleLogout}>
               Logout
             </Button>
           </Stack>
         ) : (
-          <Stack direction="row" alignItems="center" spacing={2}>
+          <Stack direction="row" alignItems="center" spacing={1}>
             <Link
               to="/login"
               style={{ color: "inherit", textDecoration: "none" }}
