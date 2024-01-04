@@ -71,7 +71,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
         </Select>
       </FormControl>
 
-      {selectedOption.color && (
+      {
         <FormControl fullWidth sx={{ mb: 2 }}>
           <InputLabel>Size</InputLabel>
           <Select
@@ -91,7 +91,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
             ))}
           </Select>
         </FormControl>
-      )}
+      }
     </Box>
   );
 };

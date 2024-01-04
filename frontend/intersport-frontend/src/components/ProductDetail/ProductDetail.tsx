@@ -38,9 +38,9 @@ const ProductDetail: React.FC<Product> = ({
     "success"
   );
   const [selectedOption, setSelectedOption] = useState<selectedProductOption>({
-    size: "",
-    color: "",
-    imageUrl: imageUrl, // Initialize with the default imageUrl
+    size: options[0].sizes[0].size,
+    color: options[0].color,
+    imageUrl: options[0].image_url, // Initialize with the default imageUrl
   });
 
   // Check if the user is logged in and get the user ID from Redux state
