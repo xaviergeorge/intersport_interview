@@ -114,13 +114,13 @@ const ProductDetail: React.FC<Product> = ({
     <>
       <Box
         sx={{
-          maxWidth: 500, // Adjust if necessary
-          my: 4,
+          maxWidth: 500,
+          my: 3,
           mx: "auto",
           bgcolor: "background.paper",
           boxShadow: 3,
           borderRadius: 2,
-          p: 2,
+          p: 4,
         }}
       >
         <Card>
@@ -128,9 +128,9 @@ const ProductDetail: React.FC<Product> = ({
             sx={{
               height: 0,
               overflow: "hidden",
-              paddingTop: "56.25%", // for a 16:9 aspect ratio, adjust as needed
+              paddingTop: "56.25%", // for a 16:9 aspect ratio
               position: "relative",
-              width: "100%", // This makes the container responsive
+              width: "100%", // container responsive
             }}
           >
             <img
@@ -153,8 +153,7 @@ const ProductDetail: React.FC<Product> = ({
             <Typography variant="body2" color="text.secondary">
               {description}
             </Typography>
-            <Typography variant="h6">${basePrice}</Typography>
-
+            <Typography variant="h6">€{basePrice}</Typography>
             <ProductOptions
               options={options}
               selectedOption={selectedOption}

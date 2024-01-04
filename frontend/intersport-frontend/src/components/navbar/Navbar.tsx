@@ -53,13 +53,13 @@ const Navbar: React.FC = () => {
         <Typography
           variant="h6"
           component="div"
-          sx={{ flexGrow: 1, textAlign: "center" }}
+          sx={{ textAlign: "center", marginLeft: 2 }}
         >
           Shoppy
         </Typography>
         {/* Right side elements */}
         {isLoggedIn ? (
-          <Stack direction="row" alignItems="center" spacing={1}>
+          <Stack direction="row" alignItems="center" spacing={2}>
             <Badge badgeContent={cartCount} color="error">
               <ShoppingCartIcon />
             </Badge>
@@ -69,7 +69,7 @@ const Navbar: React.FC = () => {
             </Button>
           </Stack>
         ) : (
-          <Stack direction="row" alignItems="center" spacing={1}>
+          <Stack direction="row" alignItems="center" spacing={2}>
             <Link
               to="/login"
               style={{ color: "inherit", textDecoration: "none" }}
