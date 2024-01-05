@@ -69,7 +69,15 @@ Before deploying the function, ensure you have the following prerequisites:
 
    After deployment, the function will be accessible via an HTTP endpoint provided by Google Cloud. You can test it by making POST requests to this endpoint.
 
-7. **Usage:**
+7. **Running test cases:**
+
+   You can run tests by running
+
+   ```
+   npm run test
+   ```
+
+8. **Usage:**
 
    The `addToCart` function accepts POST requests with the following JSON data:
 

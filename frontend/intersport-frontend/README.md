@@ -51,6 +51,14 @@ npm start
 
 This will start the local server and open the project in your default web browser.
 
+###Running test cases:
+
+You can run tests by running
+
+```
+npm run test
+```
+
 ### Building for Production
 
 To build the project for production, run:

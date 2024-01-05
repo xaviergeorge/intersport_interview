@@ -44,9 +44,16 @@ Follow these steps to deploy the `getProducts` Google Cloud Function:
    ```
 
    The function will be available at http://localhost:8080.
-   Deploy the Function:
 
-4. **Deploy the function using the Google Cloud SDK:**
+4. **Running test cases:**
+
+   You can run tests by running
+
+   ```
+   npm run test
+   ```
+
+5. **Deploy the function using the Google Cloud SDK:**
 
    ```
    gcloud functions deploy getProducts \
